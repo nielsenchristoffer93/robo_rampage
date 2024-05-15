@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7bwmxot84vn1"]
+
+[ext_resource type="FontFile" uid="uid://bnks233v4ejs7" path="res://assets/staatliches/Staatliches-Regular.ttf" id="1_missy"]
+[ext_resource type="Script" path="res://player/game_over_menu.gd" id="2_kvq77"]
+[ext_resource type="Shader" uid="uid://o7hisg5r0tuv" path="res://player/game_over_menu.tres" id="3_hk2yb"]
+
+[sub_resource type="Theme" id="Theme_34bqj"]
+default_font = ExtResource("1_missy")
+default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqwtw"]
+shader = ExtResource("3_hk2yb")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b5qp1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6w6eg"]
+font_size = 96
+
+[node name="GameOverMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_34bqj")
+script = ExtResource("2_kvq77")
+
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_dqwtw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_b5qp1")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game over"
+label_settings = SubResource("LabelSettings_6w6eg")
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Again"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "I'm done"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
